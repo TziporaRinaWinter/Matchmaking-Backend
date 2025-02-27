@@ -61,12 +61,16 @@ const getAllProposals = async (req, res) => {
 };
 
 const getProposalById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const proposal = await Proposal.findById(req.params.id);
+    const proposal = await Proposal.findById(id);
     if (!proposal) {
       return res.status(404).send("Proposal not found");
     }
-    res.send(proposal);
+
+    const files = await gfs.files.find({ proposalId: proposal._id }).toArray();
+
+    res.send({ ...proposal.toObject(), files });
   } catch (err) {
     res.status(500).send("Error retrieving proposal");
   }
