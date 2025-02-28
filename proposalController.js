@@ -9,6 +9,7 @@ const initGridFS = (conn) => {
   gfs = Grid(conn.db, mongoose.mongo);
 };
 
+// create new propsal
 const createProposal = async (req, res) => {
   const { name, yeshiva, shadchan, details, notes, id } = req.body;
 
@@ -51,6 +52,7 @@ const createProposal = async (req, res) => {
   }
 };
 
+// get all propsals
 const getAllProposals = async (req, res) => {
   try {
     const proposals = await Proposal.find();
@@ -60,6 +62,7 @@ const getAllProposals = async (req, res) => {
   }
 };
 
+// get propsal by ID
 const getProposalById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -76,6 +79,7 @@ const getProposalById = async (req, res) => {
   }
 };
 
+// update propsal
 const updateProposal = async (req, res) => {
   try {
     const proposal = await Proposal.findById(req.params.id);
@@ -115,6 +119,7 @@ const updateProposal = async (req, res) => {
   }
 };
 
+// delete propsal
 const deleteProposal = async (req, res) => {
   try {
     const proposal = await Proposal.findByIdAndDelete(req.params.id);
