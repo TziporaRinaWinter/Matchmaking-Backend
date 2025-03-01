@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const proposalRoutes = require("./routes/proposalRoutes");
-const { initGridFS } = require("./controllers/proposalController");
+const proposalRoutes = require("./proposalRoutes");
+const { initGridFS } = require("./proposalController");
 const app = express();
 
 mongoose.connect("mongodb://localhost:27017/yourdbname", {

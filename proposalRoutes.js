@@ -7,7 +7,7 @@ const {
   getProposalById,
   updateProposal,
   deleteProposal,
-} = require("../controllers/proposalController");
+} = require("./proposalController");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

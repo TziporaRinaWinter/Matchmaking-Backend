@@ -1,4 +1,4 @@
-const Proposal = require("../models/Proposal");
+const Proposal = require("./Proposal");
 const Grid = require("gridfs-stream");
 const fs = require("fs");
 const mongoose = require("mongoose");
