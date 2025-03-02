@@ -1,10 +1,12 @@
 const express = require("express");
+require("dotenv").config();
 const mongoose = require("mongoose");
 const proposalRoutes = require("./proposalRoutes");
 const { initGridFS } = require("./proposalController");
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/yourdbname", {
+const DB_URL = process.env.DB_URL;
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

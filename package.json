@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "gridfs-stream": "^1.1.1",
     "mongoose": "^8.10.1"
