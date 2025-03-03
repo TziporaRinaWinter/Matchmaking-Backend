@@ -1,19 +1,18 @@
 const express = require("express");
-require("dotenv").config();
-const mongoose = require("mongoose");
-const proposalRoutes = require("./proposalRoutes");
-const { initGridFS } = require("./proposalController");
+const proposalRoutes = require("./proposalRoutes.js");
+const { initGridFS } = require("./proposalController.js");
+const db = require("./db.js");
 const app = express();
 
-const DB_URL = process.env.DB_URL;
-console.log("---------------------", DB_URL);
-
-mongoose.connect(DB_URL);
-
-const conn = mongoose.connection;
-conn.once("open", () => {
-  initGridFS(conn);
-});
+db.connect()
+  .then((conn) => {
+    conn.once("open", () => {
+      initGridFS(conn);
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to connect to the database:", error);
+  });
 
 app.use(express.json());
 app.use("/proposals", proposalRoutes);

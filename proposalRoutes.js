@@ -28,17 +28,17 @@ const handleError = (err, req, res, next) => {
 
 router.post(
   "/proposals",
-  upload.fields([{ name: "pdf" }, { name: "image" }]),
-  createProposal
+  createProposal,
+  upload.fields([{ name: "pdf" }, { name: "image" }])
 );
 router.get("/proposals", getAllProposals);
-router.get("/proposals/:id", getProposalById);
+router.get("/proposals/:_id", getProposalById);
 router.put(
-  "/proposals/:id",
-  upload.fields([{ name: "pdf" }, { name: "image" }]),
-  updateProposal
+  "/proposals/:_id",
+  updateProposal,
+  upload.fields([{ name: "pdf" }, { name: "image" }])
 );
-router.delete("/proposals/:id", deleteProposal);
+router.delete("/proposals/:_id", deleteProposal);
 
 router.use(handleError);
 

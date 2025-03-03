@@ -6,7 +6,7 @@ const ProposalSchema = new mongoose.Schema({
   shadchan: String,
   details: String,
   notes: String,
-  id: String,
+  _id: String,
 });
 
 const Proposal = mongoose.model("Proposal", ProposalSchema);

@@ -70,12 +70,13 @@ const getProposalById = async (req, res) => {
   const { id } = req.params;
   try {
     const proposal = await Proposal.findById(id);
+    console.log("===================", proposal);
     if (!proposal) {
       return res.status(404).send("Proposal not found");
     }
-
+    console.log("before files");
     const files = await gfs.files.find({ proposalId: proposal._id }).toArray();
-
+    console.log("after files");
     res.send({ ...proposal.toObject(), files });
   } catch (err) {
     console.error("Error retrieving proposal:", err);
@@ -86,11 +87,11 @@ const getProposalById = async (req, res) => {
 // update proposal
 const updateProposal = async (req, res) => {
   try {
-    const proposal = await Proposal.findById(req.params.id);
+    const proposal = await Proposal.findById(req.params._id);
     if (!proposal) {
       return res.status(404).send("Proposal not found");
     }
-
+    console.log("++++++++++++++++", proposal);
     proposal.name = req.body.name || proposal.name;
     proposal.yeshiva = req.body.yeshiva || proposal.yeshiva;
     proposal.shadchan = req.body.shadchan || proposal.shadchan;
@@ -98,6 +99,8 @@ const updateProposal = async (req, res) => {
     proposal.notes = req.body.notes || proposal.notes;
 
     await proposal.save();
+    console.log("before files");
+    console.log(req.files);
 
     if (req.files["pdf"]) {
       const writestream = gfs.createWriteStream({
@@ -127,7 +130,7 @@ const updateProposal = async (req, res) => {
 // delete proposal
 const deleteProposal = async (req, res) => {
   try {
-    const proposal = await Proposal.findByIdAndDelete(req.params.id);
+    const proposal = await Proposal.findByIdAndDelete(req.params._id);
     if (!proposal) {
       return res.status(404).send("Proposal not found");
     }
