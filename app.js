@@ -6,10 +6,9 @@ const { initGridFS } = require("./proposalController");
 const app = express();
 
 const DB_URL = process.env.DB_URL;
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+console.log("---------------------", DB_URL);
+
+mongoose.connect(DB_URL);
 
 const conn = mongoose.connection;
 conn.once("open", () => {

@@ -9,9 +9,10 @@ const initGridFS = (conn) => {
   gfs = Grid(conn.db, mongoose.mongo);
 };
 
-// create new propsal
+// create new proposal
 const createProposal = async (req, res) => {
   const { name, yeshiva, shadchan, details, notes, id } = req.body;
+  console.log("Creating proposal:", name, yeshiva, shadchan);
 
   const newProposal = new Proposal({
     name,
@@ -48,21 +49,23 @@ const createProposal = async (req, res) => {
       id: savedProposal._id,
     });
   } catch (err) {
+    console.error("Error saving proposal:", err);
     res.status(500).send("Error saving proposal");
   }
 };
 
-// get all propsals
+// get all proposals
 const getAllProposals = async (req, res) => {
   try {
     const proposals = await Proposal.find();
     res.send(proposals);
   } catch (err) {
+    console.error("Error retrieving proposals:", err);
     res.status(500).send("Error retrieving proposals");
   }
 };
 
-// get propsal by ID
+// get proposal by ID
 const getProposalById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -75,11 +78,12 @@ const getProposalById = async (req, res) => {
 
     res.send({ ...proposal.toObject(), files });
   } catch (err) {
+    console.error("Error retrieving proposal:", err);
     res.status(500).send("Error retrieving proposal");
   }
 };
 
-// update propsal
+// update proposal
 const updateProposal = async (req, res) => {
   try {
     const proposal = await Proposal.findById(req.params.id);
@@ -115,11 +119,12 @@ const updateProposal = async (req, res) => {
 
     res.send({ message: "Proposal updated successfully" });
   } catch (err) {
+    console.error("Error updating proposal:", err);
     res.status(500).send("Error updating proposal");
   }
 };
 
-// delete propsal
+// delete proposal
 const deleteProposal = async (req, res) => {
   try {
     const proposal = await Proposal.findByIdAndDelete(req.params.id);
@@ -131,6 +136,7 @@ const deleteProposal = async (req, res) => {
 
     res.send({ message: "Proposal deleted successfully" });
   } catch (err) {
+    console.error("Error deleting proposal:", err);
     res.status(500).send("Error deleting proposal");
   }
 };

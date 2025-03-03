@@ -14,24 +14,32 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
 const upload = multer({ storage: storage });
 
+const handleError = (err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Internal Server Error");
+};
+
 router.post(
-  "/",
+  "/proposals",
   upload.fields([{ name: "pdf" }, { name: "image" }]),
   createProposal
 );
-router.get("/", getAllProposals);
-router.get("/:id", getProposalById);
+router.get("/proposals", getAllProposals);
+router.get("/proposals/:id", getProposalById);
 router.put(
-  "/:id",
+  "/proposals/:id",
   upload.fields([{ name: "pdf" }, { name: "image" }]),
   updateProposal
 );
-router.delete("/:id", deleteProposal);
+router.delete("/proposals/:id", deleteProposal);
+
+router.use(handleError);
 
 module.exports = router;
