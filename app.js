@@ -1,6 +1,6 @@
 const express = require("express");
 const proposalRoutes = require("./proposalRoutes.js");
-const { initGridFS } = require("./proposalController.js");
+const { initGridFS } = require("./db.js");
 const db = require("./db.js");
 const app = express();
 

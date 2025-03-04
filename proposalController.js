@@ -1,13 +1,5 @@
 const Proposal = require("./Proposal");
-const Grid = require("gridfs-stream");
 const fs = require("fs");
-const mongoose = require("mongoose");
-
-let gfs;
-
-const initGridFS = (conn) => {
-  gfs = Grid(conn.db, mongoose.mongo);
-};
 
 // create new proposal
 const createProposal = async (req, res) => {
